@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser")();
@@ -12,9 +14,11 @@ const Blogs = require("./src/database/models/blog");
 const app = express();
 const PORT = process.env.PORT || 3002;
 
-connectToMongoDB(process.env.MONGODB_CONNECT_URI)
-  .then(() => console.log(`Mongodb connected`))
-  .catch((error) => console.log(`Error connecting mongodb Err:${error}`));
+async function main() {
+  await connectToMongoDB(process.env.MONGODB_CONNECT_URI)
+    .then(() => console.log(`Mongodb connected`))
+    .catch((error) => console.log(`Error connecting mongodb Err:${error}`));
+}
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -30,5 +34,7 @@ app.get("/", async (req, res) => {
   const blogs = await Blogs.find({});
   res.render("home", { user: req.user, blogs: blogs });
 });
+
+main();
 
 app.listen(PORT, () => console.log(`app listen on port:${PORT}`));
