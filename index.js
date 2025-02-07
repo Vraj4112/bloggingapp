@@ -13,9 +13,7 @@ const Blogs = require("./server/database/models/blog");
 const app = express();
 const PORT = process.env.PORT || 3002;
 
-connectToMongoDB(
-  process.env.MONGODB_CONNECT_URI || "mongodb://localhost:27017/blog-app"
-)
+connectToMongoDB(process.env.MONGODB_CONNECT_URI)
   .then(() => console.log(`Mongodb connected`))
   .catch((error) => console.log(`Error connecting mongodb Err:${error}`));
 
