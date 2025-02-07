@@ -1,0 +1,28 @@
+{
+  "name": "blogging-app",
+  "version": "1.0.0",
+  "description": "password authenticaion mainly",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "pass"
+  ],
+  "author": "vraj patel",
+  "license": "ISC",
+  "dependencies": {
+    "@mui/material": "^6.4.2",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.5",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
