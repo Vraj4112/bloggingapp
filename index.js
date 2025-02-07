@@ -14,11 +14,15 @@ const Blogs = require("./src/database/models/blog");
 const app = express();
 const PORT = process.env.PORT || 3002;
 
-async function main() {
-  await connectToMongoDB(process.env.MONGODB_CONNECT_URI)
-    .then(() => console.log(`Mongodb connected`))
-    .catch((error) => console.log(`Error connecting mongodb Err:${error}`));
-}
+const main = async () => {
+  try {
+    await connectToMongoDB(process.env.MONGODB_CONNECT_URI)
+      .then(() => console.log(`Mongodb connected`))
+      .catch((error) => console.log(`Error connecting mongodb Err:${error}`));
+  } catch (error) {
+    console.error("Error during initialization:", error);
+  }
+};
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
