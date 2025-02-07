@@ -2,12 +2,12 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser")();
 
-const src = require("./server/index");
-const { connectToMongoDB } = require("./server/database/connect");
+const src = require("./src/index");
+const { connectToMongoDB } = require("./src/database/connect");
 const {
   checkForAuthenticationCookie,
-} = require("./server/middlewares/authentication");
-const Blogs = require("./server/database/models/blog");
+} = require("./src/middlewares/authentication");
+const Blogs = require("./src/database/models/blog");
 
 const app = express();
 const PORT = process.env.PORT || 3002;
@@ -21,10 +21,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser);
 app.use(checkForAuthenticationCookie("token"));
 //app.use("/img", express.static("public"));
-app.use(express.static(path.resolve("./public")));
+app.use(express.static(path.resolve("./src")));
 app.use("/", src);
 app.set("view engine", "ejs");
-app.set("views", path.resolve("./client/views"));
+app.set("views", path.resolve("./src/views"));
 
 app.get("/", async (req, res) => {
   const blogs = await Blogs.find({});

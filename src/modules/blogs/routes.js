@@ -8,7 +8,7 @@ const { createFolderForBlogImages } = require("../../utilities/createFolder");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const FOLDERNAME = path.resolve("./public/Images/blogs");
+    const FOLDERNAME = path.resolve("./src/Images/blogs");
     const newCreatedFolder = createFolderForBlogImages(FOLDERNAME);
     req.ImageFolder = newCreatedFolder.dateFolderName;
     cb(null, newCreatedFolder.folder);

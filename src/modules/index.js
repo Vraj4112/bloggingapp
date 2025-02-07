@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 
 const path = require("path");
-app.set("views", path.resolve("./client/views"));
+app.set("views", path.resolve("./src/views"));
 
 const user = require("./user/routes");
 const blog = require("./blogs/routes");
