@@ -2,6 +2,12 @@
 
 const express = require("express");
 const path = require("path");
+const cors = require("cors");
+const corsConfig = {
+  origin: "*",
+  Credential: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+};
 const cookieParser = require("cookie-parser")();
 
 const src = require("./src/index");
@@ -26,6 +32,8 @@ const main = async () => {
 main();
 
 app.use(express.json());
+app.use(cors(corsConfig));
+app.options("", cors(corsConfig));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser);
 app.use(checkForAuthenticationCookie("token"));
