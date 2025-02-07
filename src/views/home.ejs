@@ -12,23 +12,25 @@
 </head>
 <body>
     <%- include('./partials/navbar') %>
-    
-    <div class="container mt-3">
-        <div class="row row-cols-1 row-cols-md-4 g-4">
-            <% blogs.forEach(blog => { %>
-                <div class="col mt-4">
-                    <div class="card h-100" style="width: 17rem; overflow: hidden; margin-bottom: 1rem; margin-right: 1rem; height: 20rem;">
-                        <img src="<%= blog.coverImageURL %>" class="card-img-top" style="height: 10rem; object-fit: cover;">
-                        <div class="card-body">
-                          <h5 class="card-title"><%= blog.title %></h5>
-                          <h6 class="card-body" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"><%= blog.body %></h6>
-                          <a href="/blog/<%= blog._id %>" class="btn btn-primary">View</a>
+    <% if (locals.blogs) { %>
+        <div class="container mt-3">
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                <% blogs.forEach(blog => { %>
+                    <div class="col mt-4">
+                        <div class="card h-100" style="width: 17rem; overflow: hidden; margin-bottom: 1rem; margin-right: 1rem; height: 20rem;">
+                            <img src="<%= blog.coverImageURL %>" class="card-img-top" style="height: 10rem; object-fit: cover;">
+                            <div class="card-body">
+                              <h5 class="card-title"><%= blog.title %></h5>
+                              <h6 class="card-body" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"><%= blog.body %></h6>
+                              <a href="/blog/<%= blog._id %>" class="btn btn-primary">View</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            <% }) %>
+                <% }) %>
+            </div>
         </div>
-    </div>          
+    <% } %>
+              
     
     <%- include('./partials/scripts') %>
 </body>

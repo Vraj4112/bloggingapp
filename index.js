@@ -12,7 +12,7 @@ const {
 const Blogs = require("./src/database/models/blog");
 
 const app = express();
-const PORT = process.env.PORT || 3002;
+const port = process.env.PORT || 3002;
 
 const main = async () => {
   try {
@@ -23,6 +23,7 @@ const main = async () => {
     console.error("Error during initialization:", error);
   }
 };
+main();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -39,6 +40,4 @@ app.get("/", async (req, res) => {
   res.render("home", { user: req.user, blogs: blogs });
 });
 
-main();
-
-app.listen(PORT, () => console.log(`app listen on port:${PORT}`));
+app.listen(port, () => console.log(`app listen on port:${port}`));
