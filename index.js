@@ -13,7 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 3002;
 
 connectToMongoDB(
-  "mongodb+srv://user4112:vraj123456@cluster0.4r595.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+  "mongodb+srv://user4112:vraj123456@cluster0.4r595.mongodb.net/blogging-app?retryWrites=true&w=majority&appName=Cluster0"
 )
   .then(() => console.log(`Mongodb connected`))
   .catch((error) => console.log(`Error connecting mongodb Err:${error}`));
