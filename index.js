@@ -49,3 +49,22 @@ app.get("/", async (req, res) => {
 });
 
 app.listen(port, () => console.log(`app listen on port:${port}`));
+
+const os = require("os");
+
+function getCurrentIP() {
+  const networkInterfaces = os.networkInterfaces();
+  for (const interfaceName in networkInterfaces) {
+    const networkInterface = networkInterfaces[interfaceName];
+    for (const alias of networkInterface) {
+      if (alias.family === "IPv4" && !alias.internal) {
+        console.log(`Current IP Address: ${alias.address}`);
+        return alias.address;
+      }
+    }
+  }
+  console.log("No external IPv4 address found.");
+  return null;
+}
+
+getCurrentIP();
