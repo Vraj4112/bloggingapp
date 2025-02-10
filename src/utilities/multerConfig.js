@@ -1,15 +1,24 @@
-const path = require("path");
 const multer = require("multer");
+const path = require("path");
 const { createFolderForBlogImages } = require("./createFolder");
 
 const storage = multer.diskStorage({
   destination: async function (req, file, cb) {
-    const FOLDERNAME = path.resolve("./src/Images/blogs");
-    const newCreatedFolder = await createFolderForBlogImages(FOLDERNAME);
-    req.ImageFolder = newCreatedFolder.dateFolderName;
-    cb(null, newCreatedFolder.folder);
+    try {
+      const FOLDERNAME = path.resolve("./src/Images/blogs");
+      const newCreatedFolder = await createFolderForBlogImages(FOLDERNAME);
+
+      if (!newCreatedFolder) {
+        throw new Error("Failed to create folder");
+      }
+
+      req.ImageFolder = newCreatedFolder.dateFolderName;
+      cb(null, newCreatedFolder.folder);
+    } catch (error) {
+      cb(error); // Pass the error to multer
+    }
   },
-  filename: async function (req, file, cb) {
+  filename: function (req, file, cb) {
     let filename = `${Date.now()}-${file.originalname}`;
     cb(null, filename);
   },
@@ -17,7 +26,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 5 * 1024 * 1024 },
+  limits: { fileSize: 5 * 1024 * 1024 }, // Correct property name
 });
 
 module.exports = upload;
