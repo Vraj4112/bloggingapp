@@ -16,7 +16,7 @@ router.get("/:id", controller.handleViewSingleBlog);
 router.post(
   "/",
   upload.single("coverImage"),
-  async (req, res) => {
+  async (req, res, next) => {
     try {
       const userId = req.user ? req.user._id : "anonymous";
       const file = req.file;
@@ -30,7 +30,7 @@ router.post(
 
       const s3Url = await uploadFileToVercelBlob(bucketName, file, s3Key);
       req.file.url = s3Url;
-      res.json({ message: "File uploaded successfully", url: s3Url });
+      next();
     } catch (error) {
       console.log("Vercel blob Error", error);
       res.status(500).json({ messge: "File upload failed", error: error });
