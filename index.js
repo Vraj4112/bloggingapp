@@ -12,9 +12,6 @@ const cookieParser = require("cookie-parser")();
 
 const src = require("./src/index");
 const { connectToMongoDB } = require("./src/database/connect");
-const {
-  checkForAuthenticationCookie,
-} = require("./src/middlewares/authentication");
 const Blogs = require("./src/database/models/blog");
 
 const app = express();
@@ -36,7 +33,6 @@ app.use(cors(corsConfig));
 app.options("", cors(corsConfig));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser);
-app.use(checkForAuthenticationCookie("token"));
 //app.use("/img", express.static("public"));
 app.use(express.static(path.resolve("./src")));
 app.use("/", src);

@@ -21,11 +21,13 @@ const handleViewSingleBlog = async (req, res, next) => {
 };
 const handleAddNewBlog = async (req, res, next) => {
   const { title, body } = req.body;
+  const { url } = req.file;
+  const { _id } = req.user;
   const blog = await Blog.create({
     title,
     body,
-    coverImageURL: `/Images/blogs/${req.file.filename}`,
-    createdBy: req.user._id,
+    coverImageURL: url,
+    createdBy: _id,
   });
 
   return res.redirect(`/blog/${blog._id}`);
