@@ -11,15 +11,20 @@ async function createFolderForBlogImages(folderName) {
     let dateFolderName = `${year}-${month}-${day}`;
     const folder = path.join(folderName, dateFolderName);
 
-    // if (!fs.existsSync(folder)) {
-    //   fs.mkdir(folder, () => {});
-    // }
+    // Create the base directory if it doesn't exist
+    await fs.mkdir(folderName, { recursive: true });
 
+    // Create the date-based subdirectory
     try {
-      await fs.mkdir(folder, { recursive: true });
-      console.log("Folder created or already exists");
+      await fs.access(folder);
+      console.log("Folder already exists");
     } catch (error) {
-      throw error;
+      if (error.code === "ENOENT") {
+        await fs.mkdir(folder, { recursive: true });
+        console.log("Folder created");
+      } else {
+        throw error;
+      }
     }
 
     let FolderDetails = {
@@ -29,7 +34,8 @@ async function createFolderForBlogImages(folderName) {
 
     return FolderDetails;
   } catch (error) {
-    console.error(error);
+    console.error("Error creating folder:", error);
+    throw error; // Re-throw the error to ensure it's handled by the caller
   }
 }
 
