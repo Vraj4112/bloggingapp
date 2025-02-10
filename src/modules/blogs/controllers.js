@@ -24,7 +24,7 @@ const handleAddNewBlog = async (req, res, next) => {
   const blog = await Blog.create({
     title,
     body,
-    coverImageURL: `/Images/blogs/${req.ImageFolder}/${req.file.filename}`,
+    coverImageURL: `/Images/blogs/${req.file.filename}`,
     createdBy: req.user._id,
   });
 
