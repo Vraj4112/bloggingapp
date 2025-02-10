@@ -1,6 +1,6 @@
-const fs = require("fs");
+const fs = require("fs").promises;
 
-function createFolderForBlogImages(folderName) {
+async function createFolderForBlogImages(folderName) {
   try {
     const d = new Date();
     let year = d.getUTCFullYear();
@@ -8,12 +8,24 @@ function createFolderForBlogImages(folderName) {
     let day = ("0" + d.getUTCDate()).slice(-2);
 
     let dateFolderName = `${year}-${month}-${day}`;
-
     const folder = `${folderName}/${dateFolderName}`;
 
-    if (!fs.existsSync(folder)) {
-      fs.mkdir(folder, () => {});
+    // if (!fs.existsSync(folder)) {
+    //   fs.mkdir(folder, () => {});
+    // }
+
+    try {
+      await fs.access(folder);
+      console.log("Folder already exists");
+    } catch (error) {
+      if (error.code === "ENOENT") {
+        await fs.mkdir(folder, { recursive: true });
+        console.log("Folder created");
+      } else {
+        throw error;
+      }
     }
+
     let FolderDetails = {
       folder,
       dateFolderName,

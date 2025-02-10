@@ -4,8 +4,8 @@ const app = express();
 const path = require("path");
 app.set("views", path.resolve("./src/views"));
 
-const ver = require("./modules/index");
+const version_if_any = require("./modules/index");
 
-app.use("/", ver);
+app.use("/", version_if_any);
 
 module.exports = app;
