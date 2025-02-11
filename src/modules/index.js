@@ -1,6 +1,5 @@
 const express = require("express");
 const fs = require("fs").promises;
-const path = require("path");
 const app = express();
 const {
   checkForAuthenticationCookie,
@@ -9,6 +8,7 @@ const {
 const path = require("path");
 app.set("views", path.resolve("./src/views"));
 
+let tempVar;
 const user = require("./user/routes");
 const blog = require("./blogs/routes");
 
