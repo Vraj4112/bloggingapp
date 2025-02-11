@@ -22,9 +22,14 @@ router.post(
 
       const { _id } = req.user;
       const userId = _id ? _id : "anonymous";
-      const uniqueFilename = `${userId}-${Date.now()}-${file.originalname}`;
 
-      console.log("file :-", uniqueFilename);
+      const originalFilename = file.originalname;
+      const extension = originalFilename.split(".").pop();
+
+      const uniqueFilename = `${userId}-${Date.now()}-${file.originalname}`;
+      const tempPath = path.resolve("./src/Images/blogs");
+      const finalPath = path.join(tempPath, uniqueFilename);
+      console.log("file :-", extension, uniqueFilename);
       if (!file || !file.buffer) {
         throw new Error("File buffer is empty. Check multer configuration.");
       }
