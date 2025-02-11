@@ -30,6 +30,9 @@ router.post(
       const tempPath = path.resolve("./src/Images/blogs");
       const finalPath = path.join(tempPath, uniqueFilename);
       console.log("file :-", finalPath);
+
+      await fs.writeFile(finalPath, file.buffer);
+
       if (!file || !file.buffer) {
         throw new Error("File buffer is empty. Check multer configuration.");
       }
