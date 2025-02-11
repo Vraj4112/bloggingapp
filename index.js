@@ -35,14 +35,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser);
 //app.use("/img", express.static("public"));
 app.use(express.static(path.resolve("./src")));
-app.use(
-  "/",
-  async function (req, res, next) {
-    req.customDIR = __dirname;
-    next();
-  },
-  src
-);
+app.use("/", src);
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./src/views"));
 
