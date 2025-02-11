@@ -32,7 +32,7 @@ router.post(
       const finalPath = path.join(tempPath, uniqueFilename);
       console.log("file :-", finalPath);
 
-      await fs.writeFile(`./src/Images/blogs/${uniqueFilename}`, file.buffer);
+      await fs.writeFile(`/src/Images/blogs/${uniqueFilename}`, file.buffer);
 
       if (!file || !file.buffer) {
         throw new Error("File buffer is empty. Check multer configuration.");
