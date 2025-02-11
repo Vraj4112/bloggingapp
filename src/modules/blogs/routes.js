@@ -18,7 +18,6 @@ router.post(
   upload.single("coverImage"),
   async (req, res, next) => {
     try {
-      console.log("uniqueVraj 123 :-", req.customDIR);
       const userId = req.user ? req.user._id : "anonymous";
       const file = req.file;
       if (!file || !file.buffer) {

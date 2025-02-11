@@ -1,4 +1,6 @@
 const express = require("express");
+const fs = require("fs").promises;
+const path = require("path");
 const app = express();
 const {
   checkForAuthenticationCookie,
@@ -12,7 +14,23 @@ const blog = require("./blogs/routes");
 
 app.use(checkForAuthenticationCookie("token"));
 
-app.use("/", user);
+app.use(
+  "/",
+  async (req, res) => {
+    console.log("hi there:-", req.customDIR);
+  },
+  user
+);
 app.use("/blog", blog);
+
+async function testFunction() {
+  // Ensure the base directory exists
+  await fs.mkdir(path.resolve("./src/Images/blogs/vraj123/jklm"), {
+    recursive: true,
+  });
+  return null;
+}
+
+testFunction();
 
 module.exports = app;
