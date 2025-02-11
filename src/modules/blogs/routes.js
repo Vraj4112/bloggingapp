@@ -18,9 +18,13 @@ router.post(
   upload.single("coverImage"),
   async (req, res, next) => {
     try {
-      const userId = req.user ? req.user._id : "anonymous";
       const file = req.file;
-      console.log("file :-", file);
+
+      const { _id } = req.user;
+      const userId = _id ? _id : "anonymous";
+      const uniqueFilename = `${userId}-${Date.now()}-${file.originalname}`;
+
+      console.log("file :-", uniqueFilename);
       if (!file || !file.buffer) {
         throw new Error("File buffer is empty. Check multer configuration.");
       }
