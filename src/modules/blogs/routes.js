@@ -20,6 +20,7 @@ router.post(
     try {
       const userId = req.user ? req.user._id : "anonymous";
       const file = req.file;
+      console.log("file :-", file);
       if (!file || !file.buffer) {
         throw new Error("File buffer is empty. Check multer configuration.");
       }
