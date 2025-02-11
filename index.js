@@ -54,7 +54,6 @@ function getCurrentIP() {
     const networkInterface = networkInterfaces[interfaceName];
     for (const alias of networkInterface) {
       if (alias.family === "IPv4" && !alias.internal) {
-        console.log("this directory :-", __dirname);
         console.log(`Current IP Address: ${alias.address}`);
         return alias.address;
       }

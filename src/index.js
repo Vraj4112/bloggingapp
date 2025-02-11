@@ -8,4 +8,6 @@ const version_if_any = require("./modules/index");
 
 app.use("/", version_if_any);
 
+console.log("this directory :-", __dirname);
+
 module.exports = app;
