@@ -1,7 +1,6 @@
-require("dotenv").config();
 const { put } = require("@vercel/blob");
 
-async function uploadFileToVercelBlob(bucketName, file, key) {
+async function uploadFileToVercelBlob(file, key) {
   try {
     const result = await put(key, file.buffer, {
       access: "public", // or 'private'
