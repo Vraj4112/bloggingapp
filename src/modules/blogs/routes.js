@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const path = require("path");
-const crypto = require("crypto");
-const fs = require("fs").promises;
 const {
   uploadFileToVercelBlob,
 } = require("../../utilities/uploadFileToVercelBlob");
@@ -20,31 +18,16 @@ router.post(
   upload.single("coverImage"),
   async (req, res, next) => {
     try {
-      // Access the uploaded file
       const file = req.file;
 
-      const { _id } = req.user;
-      const userId = _id ? _id : "anonymous";
+      const userId = req.user ? req.user._id : "anonymous";
 
-      let sampleFile;
-      let uploadPath;
+      const originalFilename = file.originalname;
+      const extension = originalFilename.split(".").pop();
 
-      const extensionName = path.extname(file.name);
-      sampleFile = crypto.randomBytes(16).toString("hex") + extensionName;
-      uploadPath = "./src/Images/blogs/" + sampleFile;
-
-      // Move the file to the desired location
-      await file.mv(uploadPath);
-
-      // const originalFilename = file.originalname;
-      // const extension = originalFilename.split(".").pop();
-
-      // const uniqueFilename = `${userId}-${Date.now()}-${file.originalname}`;
-      // const tempPath = path.resolve("./src/Images/blogs");
-      // const finalPath = path.join(tempPath, uniqueFilename);
-      // console.log("file :-", finalPath);
-
-      //await fs.writeFile(`/src/Images/blogs/${uniqueFilename}`, file.buffer);
+      const uniqueFilename = `${userId}-${Date.now()}-${file.originalname}`;
+      const tempPath = path.resolve("./src/Images/blogs");
+      const finalPath = path.join(tempPath, uniqueFilename);
 
       if (!file || !file.buffer) {
         throw new Error("File buffer is empty. Check multer configuration.");

@@ -1,13 +1,5 @@
 const express = require("express");
-const fileUpload = require("express-fileupload");
 const app = express();
-
-// Enable files upload
-app.use(
-  fileUpload({
-    createParentPath: true,
-  })
-);
 
 const {
   checkForAuthenticationCookie,
